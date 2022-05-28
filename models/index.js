@@ -18,9 +18,11 @@ db.Sequelize = Sequelize;
 db.user = require('./user.model')(sequelize,Sequelize);
 db.doctor = require('./doctors.model')(sequelize,Sequelize);
 db.hospital = require('./hospital.model')(sequelize,Sequelize);
-
+db.appoint = require('./appointment.model')(sequelize, Sequelize);
 
 // Relationship between hospital and doctor
 db.hospital.hasMany(db.doctor);
+
+
 
 module.exports = db;

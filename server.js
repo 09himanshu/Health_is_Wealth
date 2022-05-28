@@ -24,6 +24,7 @@ db.sequelize.sync({force: true}).then(() => {
 require('./routes/auth.routes')(app);
 require('./routes/doctor.routes')(app);
 require('./routes/hospital.routes')(app);
+require('./routes/appoint.routes')(app);
 
 // app listen
 app.listen(config.port, () => {

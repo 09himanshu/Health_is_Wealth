@@ -47,7 +47,7 @@ exports.signin = (req, res) => {
         }
 
         //generate token
-        let token = jwt.sign({email: user.email}, config.secretkey, {
+        let token = jwt.sign({id : user.id}, config.secretkey, {
             expiresIn: 1000
         });
 
@@ -56,6 +56,7 @@ exports.signin = (req, res) => {
             id: user.id,
             username: user.username,
             email: user.email,
+            phone: user.phone,
             token: token
         });
 

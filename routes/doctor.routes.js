@@ -1,12 +1,12 @@
 // All doctor route end-points
 
 const controller = require('../controllers/doctor.controllers')
-const {doctorverify} = require('../middleware')
+const {doctorverify, jwtVerify} = require('../middleware')
 
 module.exports = (app) => {
 
     // Route to create doctors detail
-    app.post('/health/api/v1/docs', [doctorverify.doctorVerify],controller.create);
+    app.post('/health/api/v1/docs', [doctorverify.doctorVerify, jwtVerify.verifyJwt],controller.create);
 
     // Route for get all doctor details
     app.get('/health/api/v1/docs', controller.findAll);

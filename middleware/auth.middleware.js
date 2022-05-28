@@ -49,16 +49,25 @@ const verifyUser = (req, res, next) => {
             res.status(403).send({message: `Username is already taken try other name with alpha numaric character`});
             return;
         }
-    
+
         // check unique email
         User.findOne({
             where: {email: req.body.email}
         }).then(user => {
             if(user) {
-                return res.status(403).send({message: `Email is already taken try other name with alpha numaric character`});
+                return res.status(403).send({message: `Email is already taken `});
             }
-            next();
-        }) 
+
+             // check unique phone no.
+            User.findOne({
+                where: {phone: req.body.phone}
+            }).then(user => {
+                if(user) {
+                    return res.status(403).send({message: `Phone number is already taken`});
+                }
+                next();
+            }) 
+        })   
     }) 
 }
 

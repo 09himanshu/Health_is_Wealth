@@ -2,6 +2,7 @@
 
 const db = require('../models');
 const Hospital = db.hospital;
+const Doctor = db.doctor;
 
 const doctorVerify = (req,res,next) => {
 
@@ -30,6 +31,15 @@ const doctorVerify = (req,res,next) => {
         Hospital.findByPk(req.body.hospitalId).then(hospital => {
             if(!hospital) {
                 return res.status(404).send({message: `Invalid key`});
+            }
+        })
+
+        // check valid and not-repeating phone number
+        Doctor.findOne({
+            where : {phone: req.body.phone}
+        }).then(check => {
+            if(check) {
+                return res.status(403).send({message: `{Phone number is already registered}`});
             }
             next();
         })
