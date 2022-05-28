@@ -2,8 +2,10 @@
 
 const authVerify = require('./auth.middleware');
 const doctorverify = require('./doctor.middleware');
+const hospitalVerify = require('./hospital.middleware');
 
 module.exports = {
     authVerify,
-    doctorverify
+    doctorverify,
+    hospitalVerify
 }

@@ -10,7 +10,8 @@ exports.create = (req, res) => {
     const obj = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        phone: req.body.phone
+        phone: req.body.phone,
+        hospitalId: req.body.hospitalId
     }
     Doctor.create(obj).then(done => {
         res.status(201).send(done);
@@ -60,7 +61,7 @@ exports.update = (req, res) => {
         returning: true
     }).then(() => {
         Doctor.findByPk(id).then(doc => {
-            res.status(201).send(doc);
+            res.status(200).send(doc);
         })
     }).catch(err => {
         res.status(500).send({message: `Error occur at doctor update ${err}`});
