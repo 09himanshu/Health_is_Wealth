@@ -9,18 +9,20 @@ const verifyJwt = (req,res,next) => {
     let token = req.headers['x-access-token'];
 
     if(!token) {
-        res.status(403).send({message: `No token provided`});
+        return res.status(403).send({message: `No token provided`});
     }
 
     // verify token
     jwt.verify(token, config.secretkey, (err, decodetoken) => {
         if(err) {
-            res.status(401).send({message: `Unauthorized`});
+            return res.status(401).send({message: `Unauthorized`});
         }
-        // Read the user from token and set it to req obj
         req.userId = decodetoken.id;
+        next();
     });
-    next();
+
+    // Read the user from token and set it to req obj
+    
 }
 
 module.exports = {

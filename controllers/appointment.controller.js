@@ -84,12 +84,12 @@ exports.update = (req, res) => {
 
 // Handler for delete
 exports.delete = (req, res) => {
-    let id = req.params.id;
+    const id = req.params.id;
     Apponit.destroy({
         where: {id},
     }).then(() => {
-        res.status(204).send({message: `Appointment deleted successfully`});
+        res.status(200).send({message: `Appointment successfully deleted`});
     }).catch(err => {
-        res.status(500).send({message: `Error occur at delete hospital ${err}`});
-    })
+        res.status(500).send({message: ` Error occur at deletion ${err}`});
+    });
 }
