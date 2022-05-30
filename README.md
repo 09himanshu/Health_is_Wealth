@@ -10,3 +10,4 @@
 - Express.js 
 - Sequelize (ORM)
 - MySQL database.
+- Jest
