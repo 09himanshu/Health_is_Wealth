@@ -27,6 +27,7 @@ require('./routes/hospital.routes')(app);
 require('./routes/appoint.routes')(app);
 require('./routes/presciption.routes')(app);
 require('./routes/trackRecord.routes')(app);
+require('./routes/symptom.routes')(app);
 
 // app listen
 app.listen(config.port, () => {

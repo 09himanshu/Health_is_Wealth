@@ -21,6 +21,7 @@ db.hospital = require('./hospital.model')(sequelize,Sequelize);
 db.appoint = require('./appointment.model')(sequelize, Sequelize);
 db.presciption = require('./presciption.model')(sequelize,Sequelize);
 db.trackRecord = require('./trackRecord.model')(sequelize,Sequelize);
+db.symptom = require('./symptom.model')(sequelize,Sequelize);
 
 // Relationship between hospital and doctor
 db.hospital.hasMany(db.doctor);

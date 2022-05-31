@@ -6,6 +6,7 @@ const hospitalVerify = require('./hospital.middleware');
 const jwtVerify = require('./authJwt.middleware');
 const appointVerify = require('./appointment.middleware');
 const presciptionVerify = require('./presciption.middleware');
+const verifyTrack = require('./trackRecord.middleware');
 
 module.exports = {
     authVerify,
@@ -13,5 +14,6 @@ module.exports = {
     hospitalVerify,
     jwtVerify,
     appointVerify,
-    presciptionVerify
+    presciptionVerify,
+    verifyTrack
 }

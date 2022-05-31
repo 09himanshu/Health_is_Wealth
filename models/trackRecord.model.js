@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
         weight: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             allowNull: false,
         },
         date: {
