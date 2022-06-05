@@ -15,10 +15,23 @@ app.use(bodyParser.json());
 // database connection
 db.sequelize.sync({force: true}).then(() => {
     console.log(`Database connected`);
+    init();
 }).catch(err => {
     console.log(`Error occur at database connection ${err}`);
 });
+let Role = db.role;
 
+function init() {
+    Role.create({
+        id:1,
+        name: "customer"
+    });
+
+    Role.create({
+        id:2,
+        name: "admin"
+    });
+}
 
 // Routes
 require('./routes/auth.routes')(app);

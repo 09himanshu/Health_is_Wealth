@@ -15,8 +15,8 @@ module.exports = (app) => {
     app.get('/health/api/v1/docs/:id', controller.findById);
 
     // Route for update doctor details
-    app.put('/health/api/v1/docs/:id', controller.update);
+    app.put('/health/api/v1/docs/:id', [doctorverify.doctorVerify, jwtVerify.verifyJwt], controller.update);
 
     // Routes for delete doctor details
-    app.delete('/health/api/v1/docs/:id', controller.delete);
+    app.delete('/health/api/v1/docs/:id',[doctorverify.doctorVerify, jwtVerify.verifyJwt],controller.delete);
 }

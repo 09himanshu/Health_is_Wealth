@@ -7,7 +7,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config/server.config');
 const db = require('../models');
-const User = db.user
+const User = db.user;
+const Role = db.role;
+const Op = db.Sequelize.Op;
 
 // Signup handler
 exports.signup = (req, res) => {
@@ -19,8 +21,20 @@ exports.signup = (req, res) => {
         phone: req.body.phone,
         password: bcrypt.hashSync(req.body.password),
     }
-    User.create(obj).then(done => {
-        res.status(201).send(done);
+    User.create(obj).then(user => {
+        if(req.body.roles) {
+            Role.findAll({
+                where: {name: {[Op.or] : req.body.roles}}
+            }).then(roles => {
+                user.setRoles(roles).then( () => {
+                    res.status(201).send({message: `User successfully registered`});
+                })
+            })
+        } else {
+            user.setRoles([1]).then(() => {
+                res.status(201).send({message: `User successfully registered`});
+            })
+        }
     }).catch(err => {
         res.status(500).send({message: `Error occur at user creation ${err}`});
     })
@@ -28,7 +42,6 @@ exports.signup = (req, res) => {
 
 
 // signin handler
-
 exports.signin = (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
@@ -51,15 +64,21 @@ exports.signin = (req, res) => {
             expiresIn: 1000
         });
 
-        // res.status(200).send(token);
-        res.status(200).send({
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            phone: user.phone,
-            token: token
-        });
+        let authorities = [];
+        user.getRoles().then(roles => {
+            for(let i = 0; i < roles.length; i++) {
+                authorities.push("Role_"+roles[i].name.toUpperCase());
+            }
 
+            // res.status(200).send(token);
+            res.status(200).send({
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                roles: authorities,
+                token: token,
+            })
+        }); 
     }).catch(err => {
         console.log(err);
         res.status(500).send({message: `Error occur at user signin ${err}`});

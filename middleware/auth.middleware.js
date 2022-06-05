@@ -71,6 +71,23 @@ const verifyUser = (req, res, next) => {
     }) 
 }
 
+
+const verifyRole = (req, res, next) => {
+    if(req.body.roles) {
+        // I need to iterate through the roles provided by the customers
+
+        for(let i = 0; i < req.body.roles.length; i++) {
+            // if the req.body.roles[i] is not present in the allowed list of roles
+            if(!Role.includes(req.body.roles[i])) {
+                res.status(400).send({message: `Failed ! Role doesn;t exist ${req.body.roles[i]}`});
+                return;
+            }
+        }
+    }
+    next();
+}
+
 module.exports = {
-    verifyUser
+    verifyUser,
+    verifyRole
 }

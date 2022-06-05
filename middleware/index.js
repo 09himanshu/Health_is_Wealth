@@ -8,6 +8,7 @@ const appointVerify = require('./appointment.middleware');
 const presciptionVerify = require('./presciption.middleware');
 const verifyTrack = require('./trackRecord.middleware');
 
+
 module.exports = {
     authVerify,
     doctorverify,
